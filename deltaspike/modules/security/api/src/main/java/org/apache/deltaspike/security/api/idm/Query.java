@@ -16,31 +16,31 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 package org.apache.deltaspike.security.api.idm;
 
-import java.util.List;
-import java.util.Map;
+import java.util.Collection;
 
 /**
- * RoleQuery. All applied conditions will be resolved with logical AND.
+ *
  */
-public interface RoleQuery extends Query<Role>
+public interface Query<T extends IdmObject>
 {
-    //TODO: Javadocs
-    //TODO: Exceptions
+    Query<T> reset();
 
-    // Conditions
+    Query<T> getImmutable();
 
-    RoleQuery setName(String name);
+    Query<T> setEnabled(boolean enabled);
 
-    RoleQuery setOwner(IdentityType owner);
+    boolean getEnabled();
 
-    RoleQuery setGroup(Group group);
+    Query<T> sort(boolean ascending);
 
-    RoleQuery setGroup(String groupId);
+    void setRange(Range range);
 
-    RoleQuery setAttributeFilter(String name, String[] values);
+    Range getRange();
 
-    Map<String, String[]> getAttributeFilters();
+    Collection<T> getResults(Query<T> query);
 
+    T getSinglResults(Query<T> query);
 }

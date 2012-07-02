@@ -21,7 +21,7 @@ package org.apache.deltaspike.security.api.idm;
 /**
  * Membership links User, Group and Role.
  */
-public interface Membership
+public interface Membership extends IdmObject
 {
     //TODO: Javadocs
     //TODO: Exceptions

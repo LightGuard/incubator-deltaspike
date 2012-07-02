@@ -23,19 +23,10 @@ import java.util.List;
 /**
  * MembershipQuery. All applied conditions will be resolved with logical AND.
  */
-public interface MembershipQuery
+public interface MembershipQuery extends Query<Membership>
 {
     //TODO: Javadocs
     //TODO: Exceptions
-
-    // Operations
-
-    MembershipQuery reset();
-
-    MembershipQuery immutable();
-
-    List<Membership> executeQuery(MembershipQuery query);
-
 
     // Conditions
 
@@ -56,9 +47,5 @@ public interface MembershipQuery
     MembershipQuery setRole(String role);
 
     Role getRole();
-
-    void setRange(Range range);
-
-    Range getRange();
 
 }

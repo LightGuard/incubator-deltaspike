@@ -34,83 +34,69 @@ public interface IdentityManager
 
     //TODO: linking identities
 
+    <T extends IdmObject> Collection<T> getAll(Class<T> ObjectType);
 
-    // User
+    /**
+     *
+     * @param objectType
+     * @param objectIdentifier Could be a name, an id, etc
+     * @return
+     */
+    <T extends IdmObject> T get(Class<T> objectType, String objectIdentifier);
 
-    User createUser(String name);
+    /**
+     *
+     * @param <T>
+     * @param objectInstance Object instance to remove
+     */
+    <T extends IdmObject> void remove(T objectInstance);
 
-    void removeUser(User user);
+    /**
+     *
+     * @param idmType
+     * @param identifier could be an id, a name, etc depending on the type of the idm object
+     * @param <T>
+     */
+    <T extends IdmObject> void remove(Class<T> idmType, String identifier);
 
-    void removeUser(String name);
-
-    User getUser(String name);
-
-    Collection<User> getAllUsers();
-
+    <T extends IdmObject> T createBasic(Class<T> idmType, String identifier);
 
     // Group
-
-    Group createGroup(String id);
 
     Group createGroup(String id, Group parent);
 
     Group createGroup(String id, String parent);
 
-    void removeGroup(Group group);
-
-    void removeGroup(String groupId);
-
-    Group getGroup(String groupId);
-
     Group getGroup(String groupId, Group parent);
 
-    Collection<Group> getAllGroups();
-    
     void addToGroup(IdentityType identityType, Group group);
-    
+
     void removeFromGroup(IdentityType identityType, Group group);
 
-    Collection<IdentityType> getGroupMembers(Group group);   
+    Collection<IdentityType> getGroupMembers(Group group);
 
     // Roles
 
-    Role createRole(String name);
-
-    void removeRole(Role role);
-
-    void removeRole(String name);
-
-    Role getRole(String name);
-
-    Collection<Role> getAllRoles();
-
-    Collection<Role> getRoles(IdentityType identityType, Group group);
+    Collection<Role> getRoles(IdmObject identityType, Group group);
 
     boolean hasRole(Role role, IdentityType identityType, Group group);
-    
+
     void grantRole(Role role, IdentityType identityType, Group group);
-    
+
     void revokeRole(Role role, IdentityType identityType, Group group);
 
     // Queries
-
-    UserQuery createUserQuery();
-
-    GroupQuery createGroupQuery();
-
-    RoleQuery createRoleQuery();
-
-    MembershipQuery createMembershipQuery();
+    <T extends IdmObject> Query<T> createQuery();
 
     // Password Management
-    
+
     boolean validatePassword(String password);
 
     void updatePassword(String password);
-    
+
     // User / Role / Group enablement / expiry
 
-    void setEnabled(IdentityType identityType, boolean enabled);    
+    void setEnabled(IdentityType identityType, boolean enabled);
 
-    void setExpirationDate(IdentityType identityType, Date expirationDate);    
+    void setExpirationDate(IdentityType identityType, Date expirationDate);
 }

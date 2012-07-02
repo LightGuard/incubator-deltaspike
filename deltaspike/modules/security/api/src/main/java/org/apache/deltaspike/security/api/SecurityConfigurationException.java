@@ -19,31 +19,20 @@
 package org.apache.deltaspike.security.api;
 
 /**
- * This exception is thrown when a problem is found with the Security API configuration   
+ * This exception is thrown when a problem is found with the Security API configuration
  *
  */
 public class SecurityConfigurationException extends SecurityException
 {
     private static final long serialVersionUID = -8895836939958745981L;
-    
-    public SecurityConfigurationException() 
-    {
-        super();
-    }
 
-    public SecurityConfigurationException(String message, Throwable cause) 
+    public SecurityConfigurationException(String message, Throwable cause)
     {
         super(message, cause);
     }
 
-    public SecurityConfigurationException(String message) 
+    public SecurityConfigurationException(String message)
     {
         super(message);
     }
-
-    public SecurityConfigurationException(Throwable cause) 
-    {
-        super(cause);
-    }
-
 }

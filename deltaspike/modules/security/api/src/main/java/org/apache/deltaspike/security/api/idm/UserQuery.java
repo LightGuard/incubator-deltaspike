@@ -18,13 +18,12 @@
  */
 package org.apache.deltaspike.security.api.idm;
 
-import java.util.List;
 import java.util.Map;
 
 /**
  * UserQuery. All applied conditions will be resolved with logical AND.
  */
-public interface UserQuery
+public interface UserQuery extends Query<User>
 {
     //TODO: Javadocs
     //TODO: Exceptions
@@ -33,17 +32,6 @@ public interface UserQuery
 
     //TODO: make clear comment in javadoc about usage of wildcards -
     //TODO: should support at least usage of '*' for all built in attributes mentioned above.
-
-
-
-    // Operations
-
-    UserQuery reset();
-
-    UserQuery getImmutable();
-
-    List<User> executeQuery(UserQuery query);
-
 
     // Conditions
 
@@ -81,17 +69,7 @@ public interface UserQuery
 
     String getEmail();
 
-    UserQuery setEnabled(boolean enabled);
-
-    boolean getEnabled();
-
 
     // Pagination
-
-    UserQuery sort(boolean ascending);
-
-    void setRange(Range range);
-
-    Range getRange();
 
 }

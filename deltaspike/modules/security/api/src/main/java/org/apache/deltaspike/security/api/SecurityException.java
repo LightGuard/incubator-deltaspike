@@ -24,27 +24,17 @@ package org.apache.deltaspike.security.api;
  * exception class, making it easy for other modules and extensions to catch all
  * security-related exceptions in a single catch block, if need be.
  */
-public abstract class SecurityException extends RuntimeException 
+public abstract class SecurityException extends RuntimeException
 {
     private static final long serialVersionUID = 789326682407249952L;
 
-    public SecurityException() 
-    {
-        super();
-    }
-
-    public SecurityException(String message, Throwable cause) 
+    public SecurityException(String message, Throwable cause)
     {
         super(message, cause);
     }
 
-    public SecurityException(String message) 
+    public SecurityException(String message)
     {
         super(message);
-    }
-
-    public SecurityException(Throwable cause) 
-    {
-        super(cause);
     }
 }

@@ -18,25 +18,15 @@
  */
 package org.apache.deltaspike.security.api.idm;
 
-import java.util.List;
 import java.util.Map;
 
 /**
  * GroupQuery. All applied conditions will be resolved with logical AND.
  */
-public interface GroupQuery
+public interface GroupQuery extends Query<Group>
 {
     //TODO: Javadocs
     //TODO: Exceptions
-
-    // Operations
-
-    GroupQuery reset();
-
-    GroupQuery immutable();
-
-    List<Group> executeQuery(GroupQuery query);
-
 
     // Conditions
 
@@ -66,14 +56,8 @@ public interface GroupQuery
 
     User getRelatedUser();
 
-    GroupQuery addAttributeFilter(String name, String[] values);
+    GroupQuery addAttributeFilter(String name, String ... values);
 
     Map<String, String[]> getAttributeFilters();
-
-    GroupQuery sort(boolean ascending);
-
-    void setRange(Range range);
-
-    Range getRange();
 
 }

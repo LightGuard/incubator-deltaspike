@@ -25,16 +25,16 @@ import java.util.Map;
  * IdentityObject
  *
  */
-public interface IdentityType
+public interface IdentityType extends IdmObject
 {
 
     String getKey();
-    
+
     boolean isEnabled();
 
     Date getExpirationDate();
 
-    Date getCreationDate();   
+    Date getCreationDate();
 
     // Attributes
 
