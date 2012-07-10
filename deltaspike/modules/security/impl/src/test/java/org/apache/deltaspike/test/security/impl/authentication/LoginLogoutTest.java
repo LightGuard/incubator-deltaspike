@@ -19,7 +19,6 @@
 package org.apache.deltaspike.test.security.impl.authentication;
 
 import org.apache.deltaspike.core.api.provider.BeanProvider;
-import org.apache.deltaspike.core.impl.exclude.extension.ExcludeExtension;
 import org.apache.deltaspike.security.api.Identity;
 import org.apache.deltaspike.security.api.authentication.UnexpectedCredentialException;
 import org.apache.deltaspike.security.api.credential.LoginCredential;
@@ -27,14 +26,11 @@ import org.apache.deltaspike.test.util.ArchiveUtils;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import javax.enterprise.inject.spi.Extension;
 import javax.inject.Inject;
 
 
@@ -62,14 +58,9 @@ public class LoginLogoutTest
     @Deployment
     public static WebArchive deploy()
     {
-        JavaArchive testJar = ShrinkWrap.create(JavaArchive.class, "loginLogoutTest.jar")
-                .addPackage("org.apache.deltaspike.test.security.impl.authentication")
-                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-
         return ShrinkWrap.create(WebArchive.class)
                 .addAsLibraries(ArchiveUtils.getDeltaSpikeCoreAndSecurityArchive())
-                .addAsLibraries(testJar)
-                .addAsServiceProvider(Extension.class, ExcludeExtension.class)
+                .addPackage("org.apache.deltaspike.test.security.impl.authentication")
                 .addAsWebInfResource(ArchiveUtils.getBeansXml(), "beans.xml");
     }
 
@@ -78,7 +69,7 @@ public class LoginLogoutTest
     {
         final String userName = "spike";
         final String password = "apache";
-        
+
         //init
         authenticator.register(userName, password);
 

@@ -20,7 +20,10 @@
 <beans xmlns="http://java.sun.com/xml/ns/javaee"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/beans_1_0.xsd">
+    <!-- X TODO: Pretty sure we don't need to enable the interceptor in the impl jar, users should enable it
+         for their application / jars
     <interceptors>
         <class>org.apache.deltaspike.security.impl.authorization.SecurityInterceptor</class>
     </interceptors>
+    -->
 </beans>

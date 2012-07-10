@@ -44,17 +44,24 @@ public abstract class ClassUtils
      * Detect the right ClassLoader.
      * The lookup order is determined by:
      * <ol>
+     * <li>ClassLoader of the given Class 'o'</li>
      * <li>ContextClassLoader of the current Thread</li>
-     * <li>ClassLoader of the given Object 'o'</li>
      * <li>ClassLoader of this very ClassUtils class</li>
      * </ol>
      *
      * @param o if not <code>null</code> it may get used to detect the classloader.
      * @return The {@link ClassLoader} which should get used to create new instances
      */
-    public static ClassLoader getClassLoader(Object o)
+    public static ClassLoader getClassLoader(Class<?> o)
     {
-        ClassLoader loader = AccessController.doPrivileged(new PrivilegedAction<ClassLoader>()
+        ClassLoader loader = null;
+
+        if (o != null)
+        {
+            return o.getClassLoader();
+        }
+
+        loader = AccessController.doPrivileged(new PrivilegedAction<ClassLoader>()
         {
             /**
              * {@inheritDoc}
@@ -73,11 +80,6 @@ public abstract class ClassUtils
             }
         }
         );
-
-        if (loader == null && o != null)
-        {
-            loader = o.getClass().getClassLoader();
-        }
 
         if (loader == null)
         {

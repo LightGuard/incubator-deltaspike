@@ -41,8 +41,10 @@ public class ArchiveUtils
         }
         else
         {
-            excludedFiles = new String[]{"META-INF.apache-deltaspike.properties", "META-INF.beans.xml"};
+//            excludedFiles = new String[]{"META-INF.apache-deltaspike.properties", "META-INF.beans.xml"};
+            excludedFiles = new String[]{"META-INF.apache-deltaspike.properties"};
         }
+
 
 
         return ShrinkWrapArchiveUtil.getArchives(null,

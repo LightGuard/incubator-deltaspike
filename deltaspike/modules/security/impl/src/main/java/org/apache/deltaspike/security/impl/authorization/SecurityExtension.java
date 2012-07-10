@@ -59,7 +59,7 @@ public class SecurityExtension implements Extension, Deactivatable
     //workaround for OWB
     public static SecurityMetaDataStorage getMetaDataStorage()
     {
-        ClassLoader classLoader = ClassUtils.getClassLoader(null);
+        ClassLoader classLoader = ClassUtils.getClassLoader(SecurityMetaDataStorage.class);
 
         SecurityMetaDataStorage securityMetaDataStorage = SECURITY_METADATA_STORAGE_MAPPING.get(classLoader);
 
@@ -74,7 +74,7 @@ public class SecurityExtension implements Extension, Deactivatable
 
     public static void removeMetaDataStorage()
     {
-        ClassLoader classLoader = ClassUtils.getClassLoader(null);
+        ClassLoader classLoader = ClassUtils.getClassLoader(SecurityMetaDataStorage.class);
         SECURITY_METADATA_STORAGE_MAPPING.remove(classLoader);
     }
 
@@ -96,7 +96,7 @@ public class SecurityExtension implements Extension, Deactivatable
 
         AnnotatedTypeBuilder<X> builder = null;
         AnnotatedType<X> type = event.getAnnotatedType();
-        
+
         boolean isSecured = false;
 
         // Add the security interceptor to the class if the class is annotated
@@ -115,21 +115,21 @@ public class SecurityExtension implements Extension, Deactivatable
         // If the class isn't annotated with a security binding type, check if
         // any of its methods are, and if so, add the security interceptor to the
         // method
-        if (!isSecured) 
+        if (!isSecured)
         {
-            for (final AnnotatedMethod<? super X> m : type.getMethods()) 
+            for (final AnnotatedMethod<? super X> m : type.getMethods())
             {
-                if (m.isAnnotationPresent(Secures.class)) 
+                if (m.isAnnotationPresent(Secures.class))
                 {
                     registerAuthorizer(m, beanManager);
                     continue;
                 }
 
-                for (final Annotation annotation : m.getAnnotations()) 
+                for (final Annotation annotation : m.getAnnotations())
                 {
                     if (SecurityUtils.isMetaAnnotatedWithSecurityBindingType(annotation))
                     {
-                        if (builder == null) 
+                        if (builder == null)
                         {
                             builder = new AnnotatedTypeBuilder<X>().readFromType(type);
                         }
@@ -142,12 +142,12 @@ public class SecurityExtension implements Extension, Deactivatable
         }
 
         // If either the bean or any of its methods are secured, register it
-        if (isSecured) 
+        if (isSecured)
         {
             getMetaDataStorage().addSecuredType(type);
         }
 
-        if (builder != null) 
+        if (builder != null)
         {
             event.setAnnotatedType(builder.create());
         }
@@ -168,7 +168,7 @@ public class SecurityExtension implements Extension, Deactivatable
             // Here we simply want to validate that each type that is annotated with
             // one or more security bindings has a valid authorizer for each binding
 
-            for (final Annotation annotation : type.getJavaClass().getAnnotations()) 
+            for (final Annotation annotation : type.getJavaClass().getAnnotations())
             {
                 boolean found = false;
 
@@ -177,14 +177,14 @@ public class SecurityExtension implements Extension, Deactivatable
                     // Validate the authorizer
                     for (Authorizer auth : metaDataStorage.getAuthorizers())
                     {
-                        if (auth.matchesBinding(annotation)) 
+                        if (auth.matchesBinding(annotation))
                         {
                             found = true;
                             break;
                         }
                     }
 
-                    if (!found) 
+                    if (!found)
                     {
                         event.addDefinitionError(new SecurityDefinitionException("Secured type " +
                                 type.getJavaClass().getName() +
@@ -194,9 +194,9 @@ public class SecurityExtension implements Extension, Deactivatable
                 }
             }
 
-            for (final AnnotatedMethod<?> method : type.getMethods()) 
+            for (final AnnotatedMethod<?> method : type.getMethods())
             {
-                for (final Annotation annotation : method.getAnnotations()) 
+                for (final Annotation annotation : method.getAnnotations())
                 {
                     if (SecurityUtils.isMetaAnnotatedWithSecurityBindingType(annotation))
                     {
@@ -268,7 +268,7 @@ public class SecurityExtension implements Extension, Deactivatable
 
         if (SessionBeanType.STATELESS.equals(event.getSessionBeanType()))
         {
-            event.addDefinitionError(new IllegalStateException("Authenticator " + 
+            event.addDefinitionError(new IllegalStateException("Authenticator " +
                 event.getBean().getClass() + " cannot be a Stateless Session Bean"));
         }
     }
