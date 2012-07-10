@@ -181,16 +181,16 @@ public class BeanProviderTest
 
         Assert.assertNotNull(manualBean.getTestBean());
 
-        Assert.assertEquals(4711, manualBean.getTestBean().getI());
+        Assert.assertEquals(4711, manualBean.getTestBean().getI2());
 
         int newValue = 14;
 
-        manualBean.getTestBean().setI(newValue);
+        manualBean.getTestBean().setI2(newValue);
 
-        Assert.assertEquals(newValue, manualBean.getTestBean().getI());
+        Assert.assertEquals(newValue, manualBean.getTestBean().getI2());
 
         TestBean testBean = BeanProvider.getContextualReference(TestBean.class);
 
-        Assert.assertEquals(newValue, testBean.getI());
+        Assert.assertEquals(newValue, testBean.getI2());
     }
 }

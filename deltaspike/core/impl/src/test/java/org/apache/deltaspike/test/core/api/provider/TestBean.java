@@ -26,6 +26,7 @@ import javax.inject.Named;
 public class TestBean
 {
     private int i = 4711;
+    private int i2 = 4711;
 
     public int getI()
     {
@@ -35,5 +36,15 @@ public class TestBean
     public void setI(int i)
     {
         this.i = i;
+    }
+
+    public int getI2()
+    {
+        return i2;
+    }
+
+    public void setI2(int i2)
+    {
+        this.i2 = i2;
     }
 }
